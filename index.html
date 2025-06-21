@@ -1,0 +1,950 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>M. Salman - Portfolio</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" integrity="sha512-Fo3rlrZj/k7ujTnHg4CGR2D7kSs0v4LLanw2qksYuRlEzO+tcaEPQogQ0KaoGN26/zrn20ImR1DfuLWnOo7aBA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto+Mono:wght@400;700&family=Open+Sans:wght@400;700&family=Source+Code+Pro:wght@400;700&family=Pacifico&family=Amiri:ital,wght@0,400;0,700;1,400;1,700&display=swap" rel="stylesheet"> 
+    
+    <!-- Leaflet.js for map visualization -->
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin=""/>
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
+
+    <!-- Tippy.js for tooltips -->
+    <script src="https://unpkg.com/@popperjs/core@2"></script>
+    <script src="https://unpkg.com/tippy.js@6"></script>
+    <link rel="stylesheet" href="https://unpkg.com/tippy.js@6/dist/tippy.css"/>
+    <link rel="stylesheet" href="https://unpkg.com/tippy.js@6/animations/scale.css"/>
+
+    <!-- Vanilla-Tilt.js for 3D Profile Card -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/vanilla-tilt/1.8.0/vanilla-tilt.min.js" integrity="sha512-RX/OFugt/bkgwSMWirr4ccOupWLGhyMqlquP27GLlsXusVj29KSS32xWk1ks2H1gA5G6E6uT64xPdBL3xR+XoA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+
+    <style>
+      /* Custom global styles */
+
+      /* Styles moved from components/Hero.tsx */
+      .animation-delay-300 { animation-delay: 0.3s; }
+      .animation-delay-600 { animation-delay: 0.6s; }
+      
+      @keyframes fade-in-down {
+        0% { opacity: 0; transform: translateY(-20px); }
+        100% { opacity: 1; transform: translateY(0); }
+      }
+      @keyframes fade-in-up {
+        0% { opacity: 0; transform: translateY(20px); }
+        100% { opacity: 1; transform: translateY(0); }
+      }
+      
+      .animate-fade-in-down { animation: fade-in-down 0.8s ease-out forwards; }
+      .animate-fade-in-up { animation: fade-in-up 0.8s ease-out forwards; }
+
+      /* Styles for prose content (blog posts, modals) */
+      .prose p, .prose ul, .prose ol, .prose blockquote { 
+        margin-bottom: 1em; 
+        color: #E0E0E0; /* text-off-white for regular text */
+      }
+      .prose h1, .prose h2, .prose h3, .prose h4, .prose h5, .prose h6 { 
+        font-family: 'Roboto Mono', monospace;
+        margin-top: 1.5em;
+        margin-bottom: 0.5em; 
+        font-weight: bold;
+      }
+      /* Main page/modal title might be H1 or styled separately */
+      /* Inside modal content (dangerouslySetInnerHTML): */
+      .prose h2 { /* Main sections within modal content */
+        color: #00E5FF; /* accent-blue */
+        font-size: 1.25em; /* Slightly larger than h3 */
+        border-bottom: 1px solid rgba(0, 229, 255, 0.3);
+        padding-bottom: 0.2em;
+      }
+      .prose h3 { /* Sub-sections within modal content */
+        color: #00FFAA; /* accent-green */
+        font-size: 1.1em;
+      }
+      .prose h4 { /* Further sub-sections or emphasized points */
+        color: #B388EB; /* accent-purple */
+        font-size: 1.0em;
+        font-weight: bold;
+      }
+      .prose strong { /* Ensure strong stands out a bit more if not in a heading */
+         color: #FFFFFF; /* white for emphasis */
+      }
+      .prose em {
+         color: #cccccc; /* lighter gray for italics */
+      }
+      .prose a { color: #B388EB; text-decoration: underline; } /* accent-purple */
+      .prose a:hover { color: #E0E0E0; } /* text-off-white */
+      .prose ul, .prose ol { margin-left: 1.5em; }
+      .prose li { margin-bottom: 0.5em; }
+      .prose blockquote { border-left: 4px solid #00E5FF; padding-left: 1em; font-style: italic; color: #cccccc; }
+      .prose code { background-color: #2d2d2d; padding: 0.2em 0.4em; border-radius: 3px; font-family: 'Source Code Pro', monospace; }
+      .prose pre { background-color: #2d2d2d; padding: 1em; border-radius: 5px; overflow-x: auto; }
+      .prose pre code { background-color: transparent; padding: 0; }
+      /* End of prose styles */
+
+
+      html {
+        scroll-behavior: smooth; /* For smooth scrolling on anchor links */
+      }
+      body {
+        font-family: 'Open Sans', 'Amiri', sans-serif; /* Added Amiri for Arabic */
+        /* bg-base-dark removed from here, will be on particles container */
+      }
+      .font-headings { /* Ensure headings use preferred font */
+        font-family: 'Roboto Mono', 'Amiri', monospace;
+      }
+      .font-body {
+        font-family: 'Open Sans', 'Amiri', sans-serif;
+      }
+      /* Ensure code blocks use mono font */
+      code, pre, .font-mono, .font-\['Source_Code_Pro',_monospace\] {
+        font-family: 'Source Code Pro', 'Roboto Mono', monospace;
+      }
+
+
+      /* Terminal cursor blink animation */
+      .typed-cursor-blink {
+        display: inline-block;
+        width: 10px; 
+        height: 1.1em; /* Adjust based on terminal font size */
+        background-color: #00FFAA; /* accent-green default */
+        animation: blink 1s step-end infinite;
+        vertical-align: baseline; /* Align with text */
+        margin-left: 2px;
+      }
+
+      @keyframes blink {
+        from, to { background-color: transparent; }
+        50% { background-color: var(--cursor-color, #00FFAA); } /* Use CSS variable for color */
+      }
+      
+      /* Neon Cursors for Typed Roles */
+      .neon-cursor-cyan .typed-cursor-blink { --cursor-color: #00E5FF; }
+      .neon-cursor-lime .typed-cursor-blink { --cursor-color: #00FFAA; }
+      .neon-cursor-magenta .typed-cursor-blink { --cursor-color: #FF00FF; }
+      .neon-cursor-orange .typed-cursor-blink { --cursor-color: #FFA500; }
+      .neon-cursor-yellow .typed-cursor-blink { --cursor-color: #FFFF00; }
+      .neon-cursor-red .typed-cursor-blink { --cursor-color: #FF4757; }
+      .neon-cursor-purple .typed-cursor-blink { --cursor-color: #B388EB; }
+
+
+      /* Neon Glow Text Shadow Effects on Hover */
+      .hover-neon-glow-blue:hover {
+        text-shadow: 0 0 5px #00E5FF, 0 0 10px #00E5FF, 0 0 15px #00E5FF;
+      }
+      .hover-neon-glow-green:hover {
+        text-shadow: 0 0 5px #00FFAA, 0 0 10px #00FFAA, 0 0 15px #00FFAA;
+      }
+      .hover-neon-glow-purple:hover {
+        text-shadow: 0 0 5px #B388EB, 0 0 10px #B388EB, 0 0 15px #B388EB;
+      }
+       .hover-neon-glow-red:hover { 
+        text-shadow: 0 0 5px #FF4757, 0 0 10px #FF4757, 0 0 15px #FF4757;
+      }
+      
+      /* Tailwind custom utilities for neon text glow (optional, can use arbitrary values directly too) */
+      @layer utilities {
+        .text-glow-blue { text-shadow: 0 0 8px #00E5FF, 0 0 10px #00E5FF; }
+        .text-glow-green { text-shadow: 0 0 8px #00FFAA, 0 0 10px #00FFAA; }
+        .text-glow-purple { text-shadow: 0 0 8px #B388EB, 0 0 10px #B388EB; }
+        .text-glow-red { text-shadow: 0 0 8px #FF4757, 0 0 10px #FF4757; }
+        .shadow-glow-blue { filter: drop-shadow(0 0 8px #00E5FF); }
+        .shadow-glow-green { filter: drop-shadow(0 0 8px #00FFAA); }
+        .shadow-glow-purple { filter: drop-shadow(0 0 8px #B388EB); }
+        .shadow-glow-red { filter: drop-shadow(0 0 8px #FF4757); }
+
+        /* Custom scrollbar for webkit browsers */
+        .custom-scrollbar::-webkit-scrollbar { width: 8px; height: 8px; }
+        .custom-scrollbar::-webkit-scrollbar-track { background: #1e1e1e; /* base-light-dark */ border-radius: 4px;}
+        .custom-scrollbar::-webkit-scrollbar-thumb { background-color: #00E5FF; /* accent-blue */ border-radius: 4px; border: 2px solid #1e1e1e; }
+        .custom-scrollbar::-webkit-scrollbar-thumb:hover { background-color: #00FFAA; /* accent-green on hover */ }
+        .custom-scrollbar { scrollbar-width: thin; scrollbar-color: #00E5FF #1e1e1e; }
+      }
+      
+      /* Updated Neon Button Effects: Dark background with neon glow border/shadow */
+      .button-neon-blue {
+        background-color: #121212; /* base-dark */
+        color: #00E5FF; /* accent-blue text */
+        border: 1px solid rgba(0, 229, 255, 0.6); /* Neon border */
+        border-radius: 0.5rem;
+        box-shadow: 0 0 8px rgba(0, 229, 255, 0.5), 
+                    0 0 15px rgba(0, 229, 255, 0.3),
+                    0 0 25px rgba(0, 229, 255, 0.2);
+        transition: all 0.3s ease;
+      }
+      .button-neon-blue:hover {
+        color: #FFFFFF; /* Brighter text */
+        border-color: #00E5FF; /* Full opacity border */
+        box-shadow: 0 0 12px #00E5FF, 0 0 25px #00E5FF, 0 0 40px #00E5FF;
+      }
+
+      .button-neon-green {
+        background-color: #121212; /* base-dark */
+        color: #00FFAA; /* accent-green text */
+        border: 1px solid rgba(0, 255, 170, 0.6); /* Neon border */
+        border-radius: 0.5rem;
+        box-shadow: 0 0 8px rgba(0, 255, 170, 0.5), 
+                    0 0 15px rgba(0, 255, 170, 0.3),
+                    0 0 25px rgba(0, 255, 170, 0.2);
+        transition: all 0.3s ease;
+      }
+      .button-neon-green:hover {
+        color: #FFFFFF; /* Brighter text */
+        border-color: #00FFAA; /* Full opacity border */
+        box-shadow: 0 0 12px #00FFAA, 0 0 25px #00FFAA, 0 0 40px #00FFAA;
+      }
+
+      .button-neon-purple {
+        background-color: #121212; /* base-dark */
+        color: #B388EB; /* accent-purple text */
+        border: 1px solid rgba(179, 136, 235, 0.6); /* Neon border */
+        border-radius: 0.5rem;
+        box-shadow: 0 0 8px rgba(179, 136, 235, 0.5), 
+                    0 0 15px rgba(179, 136, 235, 0.3),
+                    0 0 25px rgba(179, 136, 235, 0.2);
+        transition: all 0.3s ease;
+      }
+      .button-neon-purple:hover {
+        color: #FFFFFF; /* Brighter text */
+        border-color: #B388EB; /* Full opacity border */
+        box-shadow: 0 0 12px #B388EB, 0 0 25px #B388EB, 0 0 40px #B388EB;
+      }
+      .button-neon-red { /* New style for close button */
+        background-color: #121212; 
+        color: #FF4757; /* accent-red text */
+        border: 1px solid rgba(255, 71, 87, 0.6); 
+        border-radius: 0.5rem; /* Can be overridden to rounded-full */
+        box-shadow: 0 0 8px rgba(255, 71, 87, 0.5), 
+                    0 0 15px rgba(255, 71, 87, 0.3),
+                    0 0 25px rgba(255, 71, 87, 0.2);
+        transition: all 0.3s ease;
+      }
+      .button-neon-red:hover {
+        color: #FFFFFF; 
+        border-color: #FF4757; 
+        box-shadow: 0 0 12px #FF4757, 0 0 25px #FF4757, 0 0 40px #FF4757;
+      }
+
+
+      /* Individual Neon Text Colors for Roles */
+      .neon-text-cyan { color: #00E5FF; text-shadow: 0 0 5px #00E5FF, 0 0 10px #00E5FF, 0 0 15px #00E5FF; }
+      .neon-text-lime { color: #00FFAA; text-shadow: 0 0 5px #00FFAA, 0 0 10px #00FFAA, 0 0 15px #00FFAA; }
+      .neon-text-magenta { color: #FF00FF; text-shadow: 0 0 5px #FF00FF, 0 0 10px #FF00FF, 0 0 15px #FF00FF; }
+      .neon-text-orange { color: #FFA500; text-shadow: 0 0 5px #FFA500, 0 0 10px #FFA500, 0 0 15px #FFA500; }
+      .neon-text-yellow { color: #FFFF00; text-shadow: 0 0 5px #FFFF00, 0 0 10px #FFFF00, 0 0 15px #FFFF00; }
+      .neon-text-red { color: #FF4757; text-shadow: 0 0 5px #FF4757, 0 0 10px #FF4757, 0 0 15px #FF4757; }
+      .neon-text-purple { color: #B388EB; text-shadow: 0 0 5px #B388EB, 0 0 10px #B388EB, 0 0 15px #B388EB; }
+
+
+      /* Styles for Mythology Page (Original and Advanced) Code Frames */
+      .myth-code-frame { /* General style for scrollbars in myth code frames */
+        scrollbar-width: thin;
+        scrollbar-color: #00E5FF #1e1e1e; /* accent-blue for thumb, base-light-dark for track */
+      }
+      .myth-code-frame::-webkit-scrollbar { width: 8px; }
+      .myth-code-frame::-webkit-scrollbar-track { background: #1e1e1e; }
+      .myth-code-frame::-webkit-scrollbar-thumb { background-color: #00E5FF; border-radius: 4px; border: 2px solid #1e1e1e; }
+      
+      .myth-code-frame, .advanced-myth-code-frame { 
+        background: #0e0e0e;
+        color: #00ffaa; 
+        font-family: 'Source Code Pro', monospace;
+        padding: 1rem;
+        border: 2px solid #00e5ff; 
+        border-radius: 0.5rem;
+        position: relative; 
+      }
+
+
+      .myth-card-selector:hover h2 {
+        color: #B388EB; /* accent-purple */
+        text-shadow: 0 0 5px #B388EB;
+      }
+      .myth-step-item.active-step { /* Example: background-color: theme('colors.accent-blue/40'); */ }
+      .myth-step-item:disabled { opacity: 0.5; cursor: not-allowed; }
+
+      /* Styles for Penetration Testing Methodology Page */
+      .methodology-toc-sticky { 
+        position: sticky;
+        top: 6rem; 
+        max-height: calc(100vh - 8rem); 
+      }
+      .methodology-toc-link.active {
+        color: #00FFAA; /* accent-green */
+        font-weight: bold;
+        border-left-color: #00FFAA;
+        transform: translateX(2px);
+      }
+      .methodology-code-snippet {
+        background-color: #0e0e0e; 
+        border: 1px solid #333; 
+        position: relative;
+      }
+      .methodology-code-snippet pre {
+         font-family: 'Source Code Pro', monospace;
+         color: #00FFAA; /* accent-green for code text */
+         padding: 1rem;
+         overflow-x: auto;
+         white-space: pre-wrap; 
+         word-break: break-all; 
+      }
+       .methodology-code-snippet .copy-button {
+        position: absolute;
+        top: 0.5rem;
+        right: 0.5rem;
+        background-color: #2a2a2a;
+        color: #00E5FF;
+        border: 1px solid #00E5FF;
+        padding: 0.25rem 0.5rem;
+        border-radius: 0.25rem;
+        font-size: 0.8rem;
+        cursor: pointer;
+        opacity: 0.7;
+        transition: opacity 0.2s;
+      }
+      .methodology-code-snippet:hover .copy-button {
+        opacity: 1;
+      }
+      .methodology-tag {
+        background-color: #00FFAA; /* accent-green */
+        color: #121212; /* base-dark */
+      }
+      .methodology-tag .remove-tag-btn {
+        color: #121212;
+      }
+       /* Simple bar chart styling (can be enhanced with JS) */
+      .bar-chart-container { display: flex; align-items: flex-end; height: 100px; gap: 5px; border-bottom: 1px solid #333; padding-bottom: 5px;}
+      .bar-chart-bar { width: 30px; background-color: #00E5FF; text-align: center; color: #121212; font-size: 0.8em; transition: height 0.3s ease-out;}
+      .bar-chart-label { font-size: 0.7em; text-align: center; color: #E0E0E0; }
+
+      /* Leaflet map container */
+      #leaflet-map-container {
+        height: 300px;
+        border-radius: 0.5rem;
+        border: 2px solid #00E5FF; /* accent-blue */
+      }
+       /* For parameter form in methodology */
+      .methodology-param-form label {
+        color: #00E5FF; /* accent-blue */
+      }
+      .methodology-param-form input[type="text"],
+      .methodology-param-form input[type="number"],
+      .methodology-param-form textarea {
+        background-color: #1e1e1e; /* base-light-dark */
+        border-color: #333;
+        color: #E0E0E0; /* text-off-white */
+      }
+      .methodology-param-form input[type="text"]:focus,
+      .methodology-param-form input[type="number"]:focus,
+      .methodology-param-form textarea:focus {
+        border-color: #00E5FF; /* accent-blue */
+        box-shadow: 0 0 0 2px rgba(0, 229, 255, 0.5);
+      }
+
+      /* ------ About Me Section - Old Styles - Ensure they are removed or don't conflict with WhoIAmPage ------ */
+      /* #about, #about .section-title, etc. are fine if MainPage uses them, but WhoIAmPage has its own structure. */
+
+
+      .profile-burst {
+        position: relative;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        margin-bottom: 2rem; 
+      }
+      .profile-avatar {
+        width: 180px; /* Increased from 150px */
+        height: 180px; /* Increased from 150px */
+        border-radius: 50%;
+        object-fit: cover;
+        border: 4px solid #B388EB; 
+        transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275); 
+        position: relative;
+        z-index: 2;
+      }
+      .profile-burst:hover .profile-avatar {
+        transform: scale(1.1);
+      }
+      .glow-pulse {
+        position: absolute;
+        width: 190px; /* Increased from 160px */
+        height: 190px; /* Increased from 160px */
+        border-radius: 50%;
+        background: radial-gradient(circle, rgba(179,136,235,0.2) 0%, rgba(179,136,235,0) 65%);
+        animation: pulseAnimation 2.5s infinite ease-in-out;
+        z-index: 1;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%) scale(1);
+      }
+      @keyframes pulseAnimation {
+        0% { transform: translate(-50%, -50%) scale(0.95); opacity: 0.6; }
+        50% { transform: translate(-50%, -50%) scale(1.05); opacity: 1; }
+        100% { transform: translate(-50%, -50%) scale(0.95); opacity: 0.6; }
+      }
+      
+      .gradient-text {
+        background: linear-gradient(90deg, #00E5FF, #00FFAA, #B388EB); /* Extended gradient */
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+        text-fill-color: transparent;
+        animation: gradient-flow 5s ease infinite;
+        background-size: 200% 200%;
+      }
+
+      @keyframes gradient-flow {
+        0% { background-position: 0% 50%; }
+        50% { background-position: 100% 50%; }
+        100% { background-position: 0% 50%; }
+      }
+
+
+      .skills-pulse-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); 
+        gap: 1.5rem;
+        margin-top: 2.5rem;
+        margin-bottom: 2.5rem; 
+        padding: 0;
+        list-style: none;
+      }
+      /* Updated .skill-box styles */
+      .skill-box {
+        background-color: #1A202C; /* Darker charcoal */
+        padding: 1.5rem;
+        border-radius: 0.75rem;
+        text-align: center;
+        border: 1px solid #4A5568; /* Subtle darker border */
+        transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
+        cursor: pointer;
+        font-family: 'Roboto Mono', monospace;
+        color: #CBD5E0; /* Lighter gray for text */
+      }
+      .skill-box i {
+        font-size: 2.5rem; /* Slightly larger icon */
+        margin-bottom: 1rem; /* More space below icon */
+        color: #00FFAA; /* accent-green for icon color */
+        display: block;
+        transition: transform 0.3s ease;
+      }
+      .skill-box span {
+        display: block;
+        font-size: 0.9rem;
+        line-height: 1.3;
+      }
+      .skill-box:hover {
+        transform: translateY(-5px) scale(1.02);
+        border-color: #B388EB; /* Purple border on hover */
+        box-shadow: 0 0 20px rgba(179, 136, 235, 0.4), 0 0 10px rgba(179, 136, 235, 0.2); /* Purple glow */
+      }
+      .skill-box:hover i {
+         transform: scale(1.05); /* Subtle icon scale, no color change */
+      }
+      
+      /* Old About Me Badge Styles - To be removed or ensured they don't conflict */
+      .typing-effect { }
+      .typing-effect strong { color: #00E5FF; }
+      .typing-cursor { 
+        display: inline-block;
+        width: 10px;
+        height: 1.1em; 
+        background-color: #00FFAA; 
+        animation: blink 0.7s step-end infinite;
+        vertical-align: baseline;
+      }
+      .highlights-list { }
+      .badge-item { }
+      .badge-item.revealed { }
+      .particle-burst-container { }
+
+      /* Birthday celebration global font change */
+      body.birthday-celebration-active {
+        font-family: 'Pacifico', 'Amiri', cursive; /* A festive, handwritten-style font, with Amiri fallback for Arabic */
+      }
+      /* Ensure specific elements retain their mono/tech fonts if Pacifico is too much */
+      body.birthday-celebration-active .font-headings,
+      body.birthday-celebration-active .font-\['Source_Code_Pro',_monospace\],
+      body.birthday-celebration-active code,
+      body.birthday-celebration-active pre,
+      body.birthday-celebration-active .font-mono,
+      body.birthday-celebration-active .blog-content h1,
+      body.birthday-celebration-active .blog-content h2,
+      body.birthday-celebration-active .blog-content h3,
+      body.birthday-celebration-active .blog-content code,
+      body.birthday-celebration-active .blog-content pre,
+      body.birthday-celebration-active #terminal-effect,
+      body.birthday-celebration-active .myth-code-frame,
+      body.birthday-celebration-active .advanced-myth-code-frame,
+      body.birthday-celebration-active .methodology-code-snippet pre {
+         font-family: 'Roboto Mono', 'Source Code Pro', monospace !important; /* Force keep mono font for code/headings */
+      }
+       body.birthday-celebration-active .font-body {
+          font-family: 'Open Sans', 'Amiri', sans-serif; /* Revert body font if Pacifico is too much for paragraphs */
+       }
+       /* For birthday overlay, we might want to specifically use Pacifico or another festive font */
+       body.birthday-celebration-active .birthday-overlay-content {
+         font-family: 'Pacifico', 'Amiri', cursive !important; 
+       }
+       
+      /* Ensure base dark background is applied for elements using this class */
+      .bg-base-dark {
+        background-color: #121212; /* This is the color used for 'base-dark' in button styles */
+      }
+      /* Ensure base light dark background is applied for elements using this class */
+      .bg-base-light-dark {
+        background-color: #1e1e1e; /* Example: base-light-dark color */
+      }
+      
+      /* Custom Text Colors for Navbar and other elements */
+      .text-accent-blue { color: #00E5FF !important; } /* !important to ensure override */
+      .text-accent-green { color: #00FFAA !important; }
+      .text-accent-purple { color: #B388EB !important; }
+      .text-accent-red { color: #FF4757 !important; }
+      .text-text-off-white { color: #E0E0E0 !important; }
+      .text-gray-300 { color: #D1D5DB !important; }
+      .text-gray-400 { color: #9CA3AF !important; }
+      .text-white { color: #FFFFFF !important; }
+
+
+       /* Floating festive balloons specific styles */
+      .floating-balloon {
+        position: fixed;
+        opacity: 0; /* Start invisible, animation will fade it in */
+        pointer-events: none; 
+        box-shadow: 0px 0px 15px rgba(0,0,0,0.3);
+        will-change: transform, opacity; /* Optimize animation */
+      }
+
+      @keyframes floatAndPopEffect { /* Renamed and modified animation */
+        0% {
+          transform: translateY(100vh) scale(0.7) rotate(-10deg);
+          opacity: 0;
+        }
+        15% { /* Fade in and start rising */
+          transform: translateY(80vh) scale(0.9) rotate(5deg);
+          opacity: 0.9;
+        }
+        85% { /* Near the top, still visible */
+          transform: translateY(5vh) scale(1.1) rotate(-5deg);
+          opacity: 0.7;
+        }
+        95% { /* Start popping */
+          transform: translateY(0vh) scale(1.2);
+          opacity: 0.5;
+        }
+        100% { /* Pop complete */
+          transform: translateY(-10vh) scale(0);
+          opacity: 0;
+        }
+      }
+
+      /* Career Path Timeline Styles */
+      .timeline-path-container {
+        position: relative;
+        width: 100%;
+        margin: 0 auto;
+      }
+      .timeline-central-line {
+        position: absolute;
+        top: 0;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 4px;
+        height: 0; /* Initial height for animation */
+        background-color: #00E5FF; /* accent-blue */
+        transition: height 1.2s cubic-bezier(0.25, 0.1, 0.25, 1);
+        z-index: 1;
+      }
+      .timeline-central-line.is-drawing {
+        height: 100%;
+      }
+
+      .timeline-item-wrapper {
+        position: relative;
+        padding: 20px 0;
+        opacity: 0;
+        transition: opacity 0.7s ease-out, transform 0.7s ease-out;
+      }
+      .timeline-item-wrapper.left-item {
+        transform: translateX(-30px);
+      }
+      .timeline-item-wrapper.right-item {
+        transform: translateX(30px);
+      }
+      .timeline-item-wrapper.is-visible {
+        opacity: 1;
+        transform: translateX(0);
+      }
+      /* Neon effect for timeline item content card */
+      .timeline-item-wrapper .p-5 { /* Target the content card specifically */
+        transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
+        box-shadow: 0 0 8px rgba(179, 136, 235, 0.3); /* Subtle static neon glow (accent-purple) */
+      }
+      .timeline-item-wrapper:hover .p-5 {
+        transform: translateY(-5px) scale(1.02);
+        border-color: #B388EB; /* accent-purple */
+        box-shadow: 0 0 15px rgba(179, 136, 235, 0.7),  /* Brighter accent-purple glow */
+                     0 0 25px rgba(179, 136, 235, 0.5), /* Wider accent-purple glow */
+                     0 0 5px rgba(0, 229, 255, 0.3); /* Hint of accent-blue */
+      }
+      /* Career Path Social Icons */
+      .career-social-icons-container {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        gap: 1.5rem; /* 24px */
+        margin-top: 1.5rem; /* 24px */
+        margin-bottom: 2.5rem; /* 40px */
+      }
+      .career-social-icon {
+        font-size: 1.875rem; /* text-3xl */
+        color: #9CA3AF; /* text-gray-400 */
+        transition: color 0.3s ease, transform 0.3s ease;
+        animation: wave-animation 3s ease-in-out infinite alternate;
+      }
+      .career-social-icon:hover {
+        color: #00E5FF; /* accent-blue */
+        transform: scale(1.15);
+      }
+      /* Staggered animation delays for wave effect */
+      /* These will be applied inline via style prop in React component */
+      /* Example: */
+      /* .career-social-icon:nth-child(1) { animation-delay: 0s; } */
+      /* .career-social-icon:nth-child(2) { animation-delay: 0.2s; } */
+
+      @keyframes wave-animation {
+        0% { transform: translateY(0px) rotate(0deg); }
+        25% { transform: translateY(-8px) rotate(-3deg); }
+        75% { transform: translateY(5px) rotate(3deg); }
+        100% { transform: translateY(0px) rotate(0deg); }
+      }
+
+
+      /* Quran Player Page Specific Styles */
+      .quran-player-page {
+        font-family: 'Amiri', 'Open Sans', serif; /* Prioritize Amiri for Arabic text */
+      }
+      .quran-player-page h1, .quran-player-page h2, .quran-player-page h3 {
+        font-family: 'Amiri', 'Roboto Mono', serif; /* Headings with Amiri */
+      }
+      .quran-player-page .surah-active {
+        /* background-color: rgba(0, 255, 170, 0.15); /* accent-green with opacity */
+        /* border-right: 4px solid #00FFAA; /* accent-green (RTL: should be left) */
+        /* color: #00FFAA; /* accent-green for text */
+        /* font-weight: bold; */
+      }
+      /* Adjusted for RTL, active Surah in list */
+      .quran-player-page .surah-active .text-right { /* Targets the button text specifically for active state */
+         color: #00FFAA;
+         font-weight: bold;
+      }
+      .quran-player-page .surah-active { /* Targets the <li> or container of the active button */
+         background-color: rgba(0, 255, 170, 0.1);
+         border-left: 3px solid #00FFAA; /* Border on the left for RTL */
+      }
+
+
+      .quran-player-page .player-control-button {
+        background: none;
+        border: none;
+        color: #E0E0E0; /* text-off-white */
+        cursor: pointer;
+        padding: 0.5rem;
+        transition: color 0.2s ease-in-out, transform 0.1s ease;
+      }
+      .quran-player-page .player-control-button:hover {
+        color: #00E5FF; /* accent-blue */
+        transform: scale(1.1);
+      }
+      .quran-player-page .player-control-button:active {
+        transform: scale(0.95);
+      }
+      .quran-player-page .accent-accent-green { /* For range input track/thumb */
+        accent-color: #00FFAA;
+      }
+      .quran-player-page .accent-accent-purple { /* For volume range input track/thumb */
+        accent-color: #B388EB;
+      }
+      .quran-player-page .audio-playing-indicator {
+        animation: pulse-indicator 1.5s infinite ease-in-out;
+      }
+      @keyframes pulse-indicator {
+        0%, 100% { opacity: 0.5; transform: scale(1); }
+        50% { opacity: 1; transform: scale(1.1); }
+      }
+
+      /* SurahInfoModal specific styles removed as modal is removed */
+      
+      .surah-text-content { /* Used by Modal (now removed) - general Arabic text style */
+        font-family: 'Amiri', serif; 
+        font-size: 1.25rem; 
+        line-height: 2.2; 
+        text-align: right; 
+        direction: rtl;
+        unicode-bidi: embed;
+      }
+       .surah-text-content .text-accent-yellow { /* For verse numbers */
+         color: #FFD700; 
+         font-weight: bold;
+         margin: 0 0.2em;
+      }
+      
+      /* Styles for Surah text display within the player page itself */
+      .surah-text-content-player {
+        font-family: 'Amiri', serif; /* Ensure Amiri for Quran text */
+        font-size: 1.1rem; /* Slightly smaller than modal for in-player display */
+        line-height: 2.0; /* Generous line height for Arabic */
+        text-align: right; /* Ensure RTL text alignment */
+        direction: rtl; /* Ensure RTL text direction */
+        unicode-bidi: embed; /* Ensure proper Unicode bidirectional algorithm application */
+        color: #E0E0E0; /* Default text color (text-off-white) */
+      }
+      .surah-text-content-player .text-accent-yellow { /* For verse numbers in player */
+         color: #FFD700; /* A gold-like yellow for verse numbers */
+         font-weight: bold;
+         margin: 0 0.2em; /* Spacing around verse numbers */
+      }
+
+      /* Global Audio Controls (Mini Player) Styles */
+      .global-audio-controls {
+        position: fixed;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        background-color: rgba(14, 14, 14, 0.9); /* base-dark with opacity */
+        backdrop-filter: blur(5px);
+        color: #E0E0E0; /* text-off-white */
+        padding: 0.5rem 1rem;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        z-index: 100;
+        border-top: 1px solid #333; /* subtle border */
+        font-family: 'Open Sans', 'Amiri', sans-serif;
+        height: 60px; /* Set fixed height */
+        box-shadow: 0 -2px 10px rgba(0,0,0,0.3);
+      }
+      .global-audio-controls .track-info {
+        flex-grow: 1;
+        text-align: right; /* RTL text */
+        overflow: hidden;
+        white-space: nowrap;
+        text-overflow: ellipsis;
+        margin-right: 1rem; /* Space before controls */
+        font-size: 0.8rem;
+      }
+      .global-audio-controls .track-info .surah-name {
+        font-weight: bold;
+        color: #00FFAA; /* accent-green */
+      }
+      .global-audio-controls .track-info .reciter-name {
+        font-size: 0.7rem;
+        color: #cccccc; /* lighter gray */
+      }
+      .global-audio-controls .controls button {
+        background: none;
+        border: none;
+        color: #E0E0E0;
+        font-size: 1.25rem; /* Slightly larger icons */
+        cursor: pointer;
+        padding: 0.3rem;
+        margin: 0 0.2rem;
+        transition: color 0.2s ease, transform 0.1s ease;
+      }
+      .global-audio-controls .controls button:hover {
+        color: #00E5FF; /* accent-blue */
+        transform: scale(1.1);
+      }
+       .global-audio-controls .controls button.play-pause-btn {
+        font-size: 1.6rem; /* Larger play/pause icon */
+        color: #00FFAA; /* accent-green */
+      }
+      .global-audio-controls .controls button.play-pause-btn:hover {
+        color: #00E5FF;
+      }
+      .global-audio-controls .open-full-player-link {
+        font-size: 1.25rem;
+        color: #B388EB; /* accent-purple */
+        margin-left: 0.75rem; /* RTL: this will be on the left */
+        transition: color 0.2s ease, transform 0.1s ease;
+      }
+      .global-audio-controls .open-full-player-link:hover {
+        color: #00E5FF; /* accent-blue */
+        transform: scale(1.1);
+      }
+
+      /* NEW HERO SECTION STYLES */
+      @media (max-width: 767px) { /* md breakpoint */
+        #hero {
+          padding-top: 7rem; /* Adjust for navbar height + extra space */
+          padding-bottom: 3rem;
+          text-align: center; /* Center text on mobile */
+        }
+        .hero-content-left {
+          order: 2; /* Text below image on mobile */
+          width: 100%;
+          padding-right: 0;
+        }
+        .hero-image-right {
+          order: 1; /* Image above text on mobile */
+          width: 100%;
+          margin-bottom: 2.5rem; /* Space between image and text */
+        }
+        .hero-image-right .relative { /* Image container */
+            margin-left: auto;
+            margin-right: auto;
+        }
+        .tech-stack-icons {
+          justify-content: center; /* Center tech icons on mobile */
+        }
+      }
+
+      .tech-badge {
+        background-color: rgba(30, 30, 30, 0.7); /* base-light-dark with alpha */
+        backdrop-filter: blur(3px);
+        color: #00E5FF; /* accent-blue */
+        padding: 0.4rem 0.9rem; /* Slightly larger padding */
+        border-radius: 9999px; /* pill shape */
+        font-size: 0.78rem; 
+        display: inline-flex;
+        align-items: center;
+        border: 1px solid rgba(0, 229, 255, 0.3); /* accent-blue border with alpha */
+        transition: all 0.3s ease;
+        box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+      }
+      .tech-badge:hover {
+        background-color: #00E5FF;
+        color: #121212; /* base-dark */
+        transform: translateY(-2px);
+        box-shadow: 0 0 12px #00E5FF, 0 4px 8px rgba(0,0,0,0.3);
+      }
+      .tech-badge i {
+        margin-right: 0.4rem;
+        font-size: 0.9em;
+      }
+
+      .orbiting-element {
+        position: absolute;
+        top: 50%; 
+        left: 50%;
+        width: var(--orbit-size);
+        height: var(--orbit-size);
+        background-color: rgba(0, 229, 255, 0.15); 
+        border: 1px solid rgba(0, 229, 255, 0.6); 
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: #00E5FF; 
+        box-shadow: 0 0 8px rgba(0, 229, 255, 0.6), inset 0 0 5px rgba(0, 229, 255, 0.3);
+        transform: translate(-50%, -50%); /* Center the element before orbit */
+        animation: orbit var(--orbit-duration) linear infinite;
+        animation-delay: var(--orbit-delay);
+        transition: transform 0.7s cubic-bezier(0.68, -0.55, 0.27, 1.55); /* Smooth transition for transform changes */
+      }
+
+      @keyframes orbit {
+        0% {
+          transform: translate(-50%, -50%) rotate(var(--initial-angle)) translateX(var(--orbit-radius)) rotate(calc(0deg - var(--initial-angle)));
+        }
+        100% {
+          transform: translate(-50%, -50%) rotate(calc(360deg + var(--initial-angle))) translateX(var(--orbit-radius)) rotate(calc(-360deg - var(--initial-angle)));
+        }
+      }
+      
+      /* Styles for Hero Social Icons Horizontal Layout REMOVED */
+      /* .hero-social-icons-horizontal-active .orbiting-element { ... } */
+      /* .hero-social-icons-horizontal-active a[data-social-id="..."] { ... } */
+      
+      /* New container for horizontal social icons in Hero section */
+      .hero-social-links-container {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        gap: 1.75rem; /* 28px, adjust as needed */
+        margin-top: 2rem; /* Space below the profile image */
+      }
+      /* The .career-social-icon class and its @keyframes wave-animation are already defined and will be used */
+
+      /* Styles for Who I Am page storyboard */
+      .scroll-reveal-section {
+        opacity: 0;
+        transform: translateY(30px); /* Start slightly lower */
+        transition: opacity 0.8s cubic-bezier(0.645, 0.045, 0.355, 1), transform 0.8s cubic-bezier(0.645, 0.045, 0.355, 1);
+      }
+      .scroll-reveal-section.is-visible {
+        opacity: 1;
+        transform: translateY(0);
+      }
+      /* For 3D card tilt effect and flip */
+      .perspective { perspective: 1000px; }
+      .backface-hidden { 
+        backface-visibility: hidden;
+        -webkit-backface-visibility: hidden; /* Safari */
+      }
+
+      /* Keyframes for text block entry from sides */
+      @keyframes fadeInFromLeft {
+        0% { opacity: 0; transform: translateX(-50px); }
+        100% { opacity: 1; transform: translateX(0); }
+      }
+      @keyframes fadeInFromRight {
+        0% { opacity: 0; transform: translateX(50px); }
+        100% { opacity: 1; transform: translateX(0); }
+      }
+      /* These would be applied by JS in ScrollAnimatedTextBlock based on isVisible and direction */
+      .animate-fade-in-left.is-visible { animation: fadeInFromLeft 0.8s ease-out forwards; }
+      .animate-fade-in-right.is-visible { animation: fadeInFromRight 0.8s ease-out forwards; }
+
+      /* Keyframes for modal fade-in and slide-up */
+      @keyframes modalFadeIn {
+        from { opacity: 0; }
+        to { opacity: 1; }
+      }
+      @keyframes modalSlideUp {
+        from { opacity: 0; transform: translateY(30px) scale(0.95); }
+        to { opacity: 1; transform: translateY(0) scale(1); }
+      }
+      .animate-fade-in { /* For modal overlay */
+        animation: modalFadeIn 0.3s ease-out forwards;
+      }
+      /* .animate-fade-in-up is already defined globally */
+    </style>
+
+<link rel="stylesheet" href="/index.css">
+<script type="importmap">
+{
+  "imports": {
+    "react": "https://esm.sh/react@^19.1.0",
+    "react-dom/": "https://esm.sh/react-dom@^19.1.0/",
+    "react/": "https://esm.sh/react@^19.1.0/",
+    "react-router-dom": "https://esm.sh/react-router-dom@^7.6.2",
+    "leaflet": "https://esm.sh/leaflet@^1.9.4",
+    "react-scroll": "https://esm.sh/react-scroll@^1.9.3"
+  }
+}
+</script>
+  <script type="module" crossorigin src="/mahmoud-portfolio/assets/index-DXRlDcKJ.js"></script>
+</head>
+<body class="text-text-off-white"> <!-- bg-base-dark removed -->
+    <!-- 
+      IMPORTANT for images: 
+      The 'public' folder (containing the 'images' subfolder) should be at the
+      root of your project when serving. Paths like '/images/profile-avatar.jpg'
+      expect the 'images' folder to be accessible from the web server's root.
+      If you're using a build tool, ensure it copies 'public' contents to the build output root.
+      If opening index.html directly via file:// protocol, these paths won't work.
+      You MUST use a local HTTP server (e.g., `npx http-server .` or Live Server in VS Code).
+    -->
+    <div id="particles-js-container" class="fixed top-0 left-0 w-full h-full z-[-1] bg-base-dark"></div> <!-- z-index changed, bg-base-dark added -->
+    <div id="root" class="relative z-[0]"></div> <!-- Added relative z-[0] for stacking context -->
+    <script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
+    <!-- The React application bundle will be loaded here by the build process or via ES Modules -->
+</body>
+</html>
