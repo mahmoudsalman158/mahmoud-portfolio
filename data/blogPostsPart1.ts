@@ -10,7 +10,7 @@ export const BLOG_POSTS_PART1_DATA: BlogPostItem[] = [
     id: 'blog-post-1',
     slug: 'advanced-web-vulnerabilities-beyond-top-10',
     title: 'Beyond the Top 10: Exploring Advanced Web Application Vulnerabilities',
-    imageUrl: "/mahmoud-portfolio/images/blog-adv-vuln.jpg',
+    imageUrl: "/mahmoud-portfolio/images/blog-adv-vuln.jpg",
     excerpt: 'The OWASP Top 10 is a great starting point, but the threat landscape is vast. This post delves into complex vulnerabilities like SSRF, XXE, Deserialization, and Race Conditions that can lead to severe breaches.',
     date: '2024-07-28',
     category: 'Web Security',
