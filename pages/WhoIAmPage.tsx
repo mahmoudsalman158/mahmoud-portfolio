@@ -261,7 +261,7 @@ const WhoIAmPage: React.FC = () => {
 
         <section ref={addToRefs} className="mb-20 scroll-reveal-section" style={{animationDelay: '0.2s'}}>
           <ProfileCard3D 
-            avatarSrc="/images/profile-avatar.jpg" 
+            avatarSrc="/mahmoud-portfolio/images/profile-avatar.jpg" 
             name="Mahmoud Salman"
             title="Cybersecurity Specialist & Go Developer"
             bio="Passionate Learner, Cybersecurity Enthusiast & Go Developer. Crafting secure, elegant, and high-performing systems."
