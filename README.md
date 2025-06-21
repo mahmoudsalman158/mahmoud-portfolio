@@ -105,8 +105,8 @@ npm run deploy
 
 **Mahmoud Salman**  
 Cybersecurity Specialist & Software Engineer  
-🔗 [LinkedIn](https://www.linkedin.com/in/mahmoudsalman158)  
-📧 mahmoud@example.com
+🔗 [LinkedIn](https://www.linkedin.com/in/mahmoud-salman-3b4a2a271/)  
+📧 mahmoudsalman796@gmail.com
 
 ---
 
