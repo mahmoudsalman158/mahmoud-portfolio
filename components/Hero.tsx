@@ -174,7 +174,7 @@ const Hero: React.FC<HeroProps> = ({ isTrueBirthday, onShowSpecialMessage, isBir
           <div className="hero-image-right md:w-2/5 lg:w-2/5 mt-16 md:mt-0 flex flex-col justify-center items-center">
             <div className="relative w-64 h-64 sm:w-80 sm:h-80 lg:w-[350px] lg:h-[350px]"> 
               <img 
-                src="/images/profile-hero.jpg" 
+                src="/mahmoud-portfolio/images/profile-hero.jpg" 
                 alt={SITE_NAME} 
                 className="rounded-full w-full h-full object-cover border-4 border-accent-blue shadow-2xl" 
               />

@@ -37,7 +37,7 @@ const About: React.FC = () => {
 
         <div className="profile-burst">
           <img 
-            src="/images/profile-avatar.jpg" 
+            src="/mahmoud-portfolio/images/profile-avatar.jpg" 
             alt={SITE_NAME} 
             className="profile-avatar" 
           />
