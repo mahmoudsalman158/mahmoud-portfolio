@@ -105,17 +105,14 @@ npm run deploy
 
 **Mahmoud Salman**  
 Cybersecurity Specialist & Software Engineer  
-<<<<<<< HEAD
-🔗 [LinkedIn](https://www.linkedin.com/in/mahmoud-salman-3b4a2a271/)  
-📧 mahmoudsalman796@gmail.com
-=======
+
+
 
 - 🔗 [LinkedIn](https://www.linkedin.com/in/mahmoud-salman-3b4a2a271/)
 - 📧 mahmoudsalman796@gmail.com
 - 📺 [YouTube](https://www.youtube.com/@FREEfree)
 - 📘 [Facebook](https://www.facebook.com/ginsh18)
 - 🧩 [LeetCode](https://leetcode.com/u/mahmoud_Neo/)
->>>>>>> f31985c (docs: updated README and image paths)
 
 ---
 
@@ -128,8 +125,8 @@ Feel free to fork it and use it as a starting point for your own portfolio!
 
 ## 📜 License
 
-<<<<<<< HEAD
+
 This project is open source and available under the [MIT License](LICENSE).
-=======
+
 Licensed under the [MIT License](LICENSE).
->>>>>>> f31985c (docs: updated README and image paths)
+
