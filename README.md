@@ -114,7 +114,7 @@ Cybersecurity Specialist & Software Engineer
 - 📺 [YouTube](https://www.youtube.com/@FREEfree)
 - 📘 [Facebook](https://www.facebook.com/ginsh18)
 - 🧩 [LeetCode](https://leetcode.com/u/mahmoud_Neo/)
-=======
+
 
 
 ---
@@ -133,7 +133,5 @@ This project is open source and available under the [MIT License](LICENSE).
 
 Licensed under the [MIT License](LICENSE).
 
-=======
-This project is open source and available under the [MIT License](LICENSE).
-=======
+
 Licensed under the [MIT License](LICENSE).
