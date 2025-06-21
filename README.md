@@ -1,20 +1,31 @@
-# Mahmoud Salman — Personal Portfolio 🚀
+<h1 align="center">🚀 Mahmoud Salman — Interactive Portfolio 🚀</h1>
 
-Welcome to my **interactive portfolio** — built to showcase my journey in **Cybersecurity**, **Software Engineering**, and beyond.  
-It’s more than just a static site — it’s a dynamic, modern web app using React, Vite, and TypeScript.
+<p align="center">
+  <img src="https://img.shields.io/github/deployments/mahmoudsalman158/mahmoud-portfolio/github-pages?label=Deployment&style=flat-square" />
+  <img src="https://img.shields.io/github/languages/top/mahmoudsalman158/mahmoud-portfolio?style=flat-square" />
+  <img src="https://img.shields.io/github/last-commit/mahmoudsalman158/mahmoud-portfolio?style=flat-square" />
+  <img src="https://img.shields.io/github/stars/mahmoudsalman158/mahmoud-portfolio?style=flat-square" />
+</p>
 
-🌐 **Live Demo**: [Visit Portfolio](https://mahmoudsalman158.github.io/mahmoud-portfolio/)
+<p align="center">
+  <b>A modern, interactive portfolio showcasing my journey in Cybersecurity & Software Engineering.</b><br />
+  Built with <code>React 19</code>, <code>Vite</code>, and <code>TypeScript</code>. Deployed via GitHub Pages.
+</p>
+
+<p align="center">
+  🌐 <a href="https://mahmoudsalman158.github.io/mahmoud-portfolio/">Live Demo</a>
+</p>
 
 ---
 
 ## ✨ Features
 
-- 🧠 Who I Am section: Interactive overview of me and my passions.
-- 💼 Projects section: Real-world projects with live previews.
-- ✍️ Blog posts: Technical deep dives into cybersecurity topics.
-- 📱 Responsive Design: Optimized for all devices.
-- 🎯 Powered by Vite + React 19 + TypeScript.
-- 🚀 Deployed on GitHub Pages.
+- 🧠 Interactive "Who I Am" section
+- 💼 Projects with live previews & details
+- ✍️ Blog posts on cybersecurity & tech topics
+- 💡 Smooth scroll, client-side routing
+- 📱 Fully responsive design
+- 🚀 Fast builds with Vite
 
 ---
 
@@ -24,19 +35,15 @@ It’s more than just a static site — it’s a dynamic, modern web app using R
 |-------------------|--------------------------------------------|
 | **React 19**      | UI library                                 |
 | **Vite**          | Lightning-fast dev/build tool              |
-| **TypeScript**    | Type-safe modern JavaScript                |
+| **TypeScript**    | Type-safe JavaScript                       |
 | **gh-pages**      | Deployment to GitHub Pages                 |
-| **Leaflet.js**    | Interactive maps (for future expansion)    |
-| **React Router**  | Client-side routing                        |
-| **React Scroll**  | Smooth navigation animations               |
+| **Leaflet.js**    | Interactive maps (optional/for expansion)  |
+| **React Router**  | SPA navigation                             |
+| **React Scroll**  | Smooth animated scrolling                  |
 
 ---
 
 ## 🛠️ Getting Started
-
-### ✅ Prerequisites
-
-- [Node.js](https://nodejs.org/en/) (v18 or higher)
 
 ### 📥 Clone the repo
 
@@ -50,16 +57,6 @@ cd mahmoud-portfolio
 ```bash
 npm install
 ```
-
-### 🔐 Set your environment key
-
-Create a `.env.local` file in the root and add:
-
-```env
-GEMINI_API_KEY=your_api_key_here
-```
-
-> 🔒 Used for future Gemini AI integrations.
 
 ### 🚀 Run the project locally
 
@@ -98,7 +95,7 @@ npm run deploy
 ├── components/               # React components
 ├── pages/                    # Route-based pages
 ├── App.tsx                   # Main app entry
-├── vite.config.ts            # Vite config + env setup
+├── vite.config.ts            # Vite config
 └── ...
 ```
 
@@ -115,8 +112,8 @@ Cybersecurity Specialist & Software Engineer
 
 ## ⭐️ Show your support
 
-If you like this project, consider giving it a star ⭐️  
-Feel free to fork and use it as a template for your own portfolio!
+If you like this project, consider giving it a ⭐️ star on GitHub.  
+Feel free to fork it and use it as a starting point for your own portfolio!
 
 ---
 
