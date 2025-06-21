@@ -4,7 +4,7 @@ export const PROJECTS_DATA: ProjectItem[] = [
   {
     id: 'project-portfolio-v2-interactive',
     title: 'Interactive Portfolio V2 (This Site!)',
-    imageUrl: "/mahmoud-portfolio/images/project-portfolio-v2.jpg', // Ensure you add this image
+    imageUrl: '/mahmoud-portfolio/images/project-portfolio-v2.jpg', // Ensure you add this image
     description: 'The dynamic and interactive personal portfolio you are currently viewing. Built from the ground up with React, TypeScript, and Tailwind CSS, featuring engaging animations, a unique project showcase, and specialized technical content sections like the Pentest Methodologies and Mythology of Vulnerabilities.',
     techStack: ['React', 'TypeScript', 'Tailwind CSS', 'Particles.js', 'Framer Motion (Conceptual)', 'Routing', 'Responsive Design'],
     githubUrl: 'https://github.com/mahmoudsalman158/interactive-portfolio-v2', // Replace with actual repo if different
@@ -15,7 +15,7 @@ export const PROJECTS_DATA: ProjectItem[] = [
   {
     id: 'project1',
     title: 'Cyber Threat Analyzer',
-    imageUrl: "/mahmoud-portfolio/images/project-threat-analyzer.jpg',
+    imageUrl: '/mahmoud-portfolio/images/project-threat-analyzer.jpg',
     description: 'AI-powered tool for real-time threat detection and analysis using Go and Python. It leverages machine learning models to identify anomalies and potential cyber attacks from various data sources.',
     techStack: ['Go', 'Python', 'AI/ML', 'Cybersecurity', 'Kafka', 'Elasticsearch'],
     githubUrl: 'https://github.com/mahmoudsalman158/placeholder-repo',
@@ -27,7 +27,7 @@ export const PROJECTS_DATA: ProjectItem[] = [
   {
     id: 'project2',
     title: 'Secure Dev Platform',
-    imageUrl: "/mahmoud-portfolio/images/project-secure-dev-platform.jpg',
+    imageUrl: '/mahmoud-portfolio/images/project-secure-dev-platform.jpg',
     description: 'A comprehensive platform integrating SAST/DAST tools, dependency checking, and secret scanning directly into CI/CD pipelines. Built with React for the frontend and Node.js for the backend orchestration.',
     techStack: ['React', 'Node.js', 'Docker', 'Kubernetes', 'DevSecOps', 'Jenkins'],
     githubUrl: 'https://github.com/mahmoudsalman158/placeholder-repo',
@@ -38,7 +38,7 @@ export const PROJECTS_DATA: ProjectItem[] = [
   {
     id: 'project3',
     title: 'Vulnerability Scanner',
-    imageUrl: "/mahmoud-portfolio/images/project-vuln-scanner.jpg',
+    imageUrl: '/mahmoud-portfolio/images/project-vuln-scanner.jpg',
     description: 'An automated network and web application vulnerability scanner. Python-based with custom-written modules for detecting common vulnerabilities like SQLi, XSS, and misconfigurations. Utilizes Nmap for port scanning and service identification.',
     techStack: ['Python', 'Nmap', 'Requests', 'BeautifulSoup', 'Celery'],
     githubUrl: 'https://github.com/mahmoudsalman158/placeholder-repo',
@@ -50,7 +50,7 @@ export const PROJECTS_DATA: ProjectItem[] = [
   {
     id: 'project5-redteam-toolkit', // New ID for the new project
     title: 'Red Team Operations Toolkit',
-    imageUrl: "/mahmoud-portfolio/images/project-redteam-framework.jpg', // Placeholder image
+    imageUrl: '/mahmoud-portfolio/images/project-redteam-framework.jpg', // Placeholder image
     description: 'A comprehensive toolkit for emulating advanced persistent threat (APT) tactics, techniques, and procedures (TTPs) in controlled red team engagements. Includes modules for C2 communication, payload generation, and lateral movement simulation.',
     techStack: ['Python', 'Go', 'Docker', 'Metasploit Framework', 'C2 Design'],
     githubUrl: 'https://github.com/mahmoudsalman158/redteam-toolkit-placeholder', // Placeholder URL
